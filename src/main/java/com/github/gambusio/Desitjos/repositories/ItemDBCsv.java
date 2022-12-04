@@ -24,10 +24,10 @@ public class ItemDBCsv implements ItemDB {
                 Item item = new Item();
                 item.setsName(parts[0]);
                 item.setsDescription(parts[1]);
-                item.setsUrl(parts[3]);
-                item.setsPicUrl(parts[4]);
-                item.setItemType(ItemType.valueOf(parts[5]));
-                item.setPrice(parts[6]);
+                item.setsUrl(parts[2]);
+                item.setsPicUrl(parts[3]);
+                item.setItemType(ItemType.valueOf(parts[4]));
+                item.setPrice(parts[5]);
                 items.add(item);
             }
 
