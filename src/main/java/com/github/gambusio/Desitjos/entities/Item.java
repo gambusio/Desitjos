@@ -9,4 +9,52 @@ public class Item {
     private String sPicUrl = "";
     private ItemType itemType;
     private BigDecimal price;
+
+    public String getsName() {
+        return sName;
+    }
+
+    public void setsName(String sName) {
+        this.sName = sName;
+    }
+
+    public String getsDescription() {
+        return sDescription;
+    }
+
+    public void setsDescription(String sDescription) {
+        this.sDescription = sDescription;
+    }
+
+    public String getsUrl() {
+        return sUrl;
+    }
+
+    public void setsUrl(String sUrl) {
+        this.sUrl = sUrl;
+    }
+
+    public String getsPicUrl() {
+        return sPicUrl;
+    }
+
+    public void setsPicUrl(String sPicUrl) {
+        this.sPicUrl = sPicUrl;
+    }
+
+    public ItemType getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(ItemType itemType) {
+        this.itemType = itemType;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = new BigDecimal(price);
+    }
 }
