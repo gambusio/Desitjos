@@ -34,12 +34,7 @@ public class WebScrapperService {
         return response.statusCode() == 200;
     }
 
-    /**
-     * Con este método devuelvo un objeto de la clase Document con el contenido del
-     * HTML de la web que me permitirá parsearlo con los métodos de la librelia JSoup
-     * @param url
-     * @return Documento con el HTML
-     */
+    
     public void setHtmlDocument(String url) {
 
         try {
