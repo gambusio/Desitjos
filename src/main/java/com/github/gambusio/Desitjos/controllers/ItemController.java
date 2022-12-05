@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Base64;
 
 @Component
 @Path("/")
@@ -27,7 +28,10 @@ public class ItemController {
     @GET
     @Path("/items/{sUrl}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Item listOneItem(@PathParam("sUrl") String sUrl) {return itemService.searchItem(sUrl);}
+    public Item listOneItem(@PathParam("sUrl") String sUrl) {
+        String decodedUrl = new String(Base64.getUrlDecoder().decode(sUrl));
+        return itemService.searchItem(decodedUrl);
+    }
 
     @POST
     @Path("/items")
@@ -42,7 +46,8 @@ public class ItemController {
     @Path("/items/{sUrl}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response deteleItem(@PathParam("sUrl") String sUrl) {
-        itemService.deleteItem(sUrl);
+        String decodedUrl = new String(Base64.getUrlDecoder().decode(sUrl));
+        itemService.deleteItem(decodedUrl);
         return Response.ok().build();
     }
 }
