@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 public class Item {
     private String sName ="";
     private String sDescription = "";
-    private String sUrl = "";  //Base64 encoded url
-    private String sPicUrl = ""; //Base64 encoded url
+    private String sUrl = "";
+    private String sPicUrl = "";
     private ItemType itemType;
     private BigDecimal price = BigDecimal.valueOf(0);
 
