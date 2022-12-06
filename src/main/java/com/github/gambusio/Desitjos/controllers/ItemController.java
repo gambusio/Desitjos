@@ -56,7 +56,7 @@ public class ItemController {
         return Response.ok().build();
     }
 
-    @GET
+    @POST
     @Path("/itemFromUrl/{sUrl}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response insertItemFromUrl(@PathParam("sUrl") String sUrl) {

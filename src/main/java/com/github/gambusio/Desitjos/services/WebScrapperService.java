@@ -36,7 +36,10 @@ public class WebScrapperService {
         return response.statusCode() == 200;
     }
 
-    
+    /**
+     * Load the webpage in document variable
+     * @param url
+     */
     public void setHtmlDocument(String url) {
 
         try {
@@ -49,6 +52,10 @@ public class WebScrapperService {
         }
     }
 
+    /**
+     * Parse the html document and extract the items values in the item variable
+     * @param sUrl
+     */
     public void parseUrl(String sUrl) {
         String[] temp;
         item = new Item();
@@ -56,16 +63,19 @@ public class WebScrapperService {
             setHtmlDocument(sUrl);
             Element title = document.getElementById("productTitle");
             Element prize = document.getElementsByClass("a-offscreen").first();
+            item.setsUrl(sUrl);
+            item.setsName(title.text());
+            item.setPrice(prize.text().substring(0,prize.text().length() - 1).replaceAll(",","."));
+
             Element description = document.getElementsByClass("ac-keyword-link").first();
             if (description == null) {
                 description = document.getElementsByClass("cat-link").first();
             }
 
-            item.setsName(title.text());
-            item.setPrice(prize.text());
             if (description != null) {
                 item.setsDescription(description.text());
             }
+
             Element picUrl = document.getElementsByClass("imgTagWrapper").first();
             if (picUrl == null) {
                 picUrl = document.getElementById("img-canvas");
@@ -73,7 +83,6 @@ public class WebScrapperService {
             } else {
                 temp = picUrl.html().split("src=")[1].split(" ");
             }
-
             item.setsPicUrl(temp[0].substring(1, temp[0].length() - 1));
             item.setItemType(ItemType.ECOMMERCE);
 
