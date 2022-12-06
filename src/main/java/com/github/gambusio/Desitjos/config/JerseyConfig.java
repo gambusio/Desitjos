@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 public class JerseyConfig extends ResourceConfig {
 
     public JerseyConfig() {
+        this.register(new CorsResponseFilter());
         this.packages("com.github.gambusio.Desitjos.controllers");
     }
 }
