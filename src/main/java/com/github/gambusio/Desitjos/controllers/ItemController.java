@@ -59,9 +59,10 @@ public class ItemController {
     @GET
     @Path("/itemFromUrl/{sUrl}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Item insertItemFromUrl(@PathParam("sUrl") String sUrl) {
+    public Response insertItemFromUrl(@PathParam("sUrl") String sUrl) {
         String decodedUrl = new String(Base64.getUrlDecoder().decode(sUrl));
         webScrapperService.parseUrl(decodedUrl);
-        return itemService.searchItem(decodedUrl);
+        itemService.insertItem(webScrapperService.getItem());
+        return Response.created(URI.create("/items/" + webScrapperService.getItem().getsUrl())).build();
     }
 }

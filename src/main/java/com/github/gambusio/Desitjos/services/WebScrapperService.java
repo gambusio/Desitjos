@@ -1,10 +1,11 @@
 package com.github.gambusio.Desitjos.services;
 
+import com.github.gambusio.Desitjos.entities.Item;
+import com.github.gambusio.Desitjos.entities.ItemType;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.io.IOException;
 public class WebScrapperService {
     private final String sUserAgent = "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36";
     private Document document = null;
+    private Item item;
     public WebScrapperService() {}
 
     /**
@@ -49,6 +51,7 @@ public class WebScrapperService {
 
     public void parseUrl(String sUrl) {
         String[] temp;
+        item = new Item();
         if (isUrlOk(sUrl)) {
             setHtmlDocument(sUrl);
             Element title = document.getElementById("productTitle");
@@ -58,10 +61,10 @@ public class WebScrapperService {
                 description = document.getElementsByClass("cat-link").first();
             }
 
-            System.out.println("Título: " + title.text());
-            System.out.println("Precio: " + prize.text());
+            item.setsName(title.text());
+            item.setPrice(prize.text());
             if (description != null) {
-                System.out.println("Descripción: " + description.text());
+                item.setsDescription(description.text());
             }
             Element picUrl = document.getElementsByClass("imgTagWrapper").first();
             if (picUrl == null) {
@@ -71,13 +74,14 @@ public class WebScrapperService {
                 temp = picUrl.html().split("src=")[1].split(" ");
             }
 
-            String sPicUrl = temp[0].substring(1, temp[0].length() - 1);
-            System.out.println("Pic URL: " + sPicUrl);
+            item.setsPicUrl(temp[0].substring(1, temp[0].length() - 1));
+            item.setItemType(ItemType.ECOMMERCE);
 
         } else {
             System.out.println("[ERROR PARSING URL]");
         }
     }
 
+    public Item getItem() { return item;}
 
 }
