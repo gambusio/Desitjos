@@ -30,10 +30,12 @@ public class WebScrapperService {
                     .timeout(100000)
                     .ignoreHttpErrors(true)
                     .execute();
+            return response.statusCode() == 200;
         } catch (IOException ex) {
 	        System.out.println("[ERROR CHECKING URL]: " + ex.getMessage());
+            return false;
         }
-        return response.statusCode() == 200;
+
     }
 
     /**
@@ -63,6 +65,7 @@ public class WebScrapperService {
             setHtmlDocument(sUrl);
             Element title = document.getElementById("productTitle");
             Element prize = document.getElementsByClass("a-offscreen").first();
+            System.out.println("Precio: " + prize);
             item.setsUrl(sUrl);
             item.setsName(title.text());
             item.setPrice(prize.text().substring(0,prize.text().length() - 1).replaceAll(",","."));

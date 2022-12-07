@@ -56,13 +56,18 @@ public class ItemController {
         return Response.ok().build();
     }
 
-   @POST
+    @GET
     @Path("/itemFromUrl/{sUrl}")
-    @Produces(MediaType.APPLICATION_JSON)
+    //@Produces(MediaType.APPLICATION_JSON)
     public Response insertItemFromUrl(@PathParam("sUrl") String sUrl) {
+        System.out.println(sUrl);
         String decodedUrl = new String(Base64.getUrlDecoder().decode(sUrl));
+        System.out.println(decodedUrl);
         webScrapperService.parseUrl(decodedUrl);
-        itemService.insertItem(webScrapperService.getItem());
-        return Response.created(URI.create("/items/" + webScrapperService.getItem().getsUrl())).build();
+        if (webScrapperService.getItem() != null) {
+            itemService.insertItem(webScrapperService.getItem());
+        }
+        //return Response.created(URI.create("/items/" + webScrapperService.getItem().getsUrl())).build();
+        return Response.ok().build();
     }
 }

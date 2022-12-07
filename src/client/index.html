@@ -5,7 +5,41 @@
     <title>Lista de Deseos</title>
 </head>
 <body>
-<div id="app"></div>
 <script src="whislist-script.js" type="module"></script>
+<script type='text/javascript'>
+function utf8_to_b64(str) {
+  return window.btoa(unescape(encodeURIComponent(str)));
+}
+
+function onSendHandler() {
+    if(this.readyState == 4 && this.status == 200) {
+        const data = JSON.parse(this.response);
+        console.log(data);
+    }
+}
+
+function sendUrl() {
+   const url_encoded = window.btoa(document.getElementById('sUrl').value);
+   console.log(url_encoded);
+   const xhr_url = new XMLHttpRequest();
+   xhr_url.addEventListener("load", onSendHandler);
+   xhr_url.open('GET', "http://localhost:8080/itemFromUrl/" + url_encoded);
+   xhr_url.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+   xhr_url.send();
+   //sleep(5000);
+   //location.reload();
+   return true;
+}
+</script>
+<form name="formulario-url" onsubmit="return sendUrl()">
+    <div>
+        <label for="sUrl">URL del artículo: </label>
+        <input name="sUrl" id="sUrl" value="http://www.foo.tld">
+    </div>
+    <div>
+        <button> Añadir </button>
+    </div>
+</form>
+<div id="app"></div>
 </body>
 </html>

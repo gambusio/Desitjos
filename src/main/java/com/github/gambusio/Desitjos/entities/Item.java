@@ -55,6 +55,10 @@ public class Item {
     }
 
     public void setPrice(String price) {
-        this.price = new BigDecimal(price);
+        try {
+            this.price = new BigDecimal(price);
+        } catch (NumberFormatException e) {
+            this.price = new BigDecimal(0);
+        }
     }
 }
